@@ -1,0 +1,51 @@
+Given a string S consisting of only lowercase characters. Find the lexicographically smallest string after removing exactly k characters from the string. But you have to correct the value of k, i.e., if the length of the string is a power of 2, reduce k by half, else multiply k by 2. You can remove any k character.
+NOTE: If it is not possible to remove k (the value of k after correction) characters or if the resulting string is empty return -1.
+
+
+Code-
+class Solution {
+  public:
+  
+    int checkPow(int n,int k)
+    {
+        int t=log2(n);
+        if(pow(2,t)==n)
+        {
+            return k/=2;
+        }
+        return k*=2;
+    }
+    string lexicographicallySmallest(string S, int k) {
+        // code here
+        int n=S.size();
+        k=checkPow(n,k);
+        if(k>=n)
+        {
+            return "-1";
+        }
+        stack<char>st;
+        string str="";
+        int removed=0;
+        for(int i=0;i<n;i++)
+        {
+            while(!st.empty() && removed<k && st.top()>S[i])
+            {
+                st.pop();
+                removed++;
+            }
+            st.push(S[i]);
+        }
+        while(removed<k)
+        {
+            st.pop();
+            removed++;
+        }
+        while(!st.empty())
+        {
+            str+=st.top();
+            st.pop();
+        }
+        reverse(str.begin(),str.end());
+        return str;
+    }
+};
