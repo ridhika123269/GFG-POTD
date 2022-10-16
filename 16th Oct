@@ -1,0 +1,27 @@
+You are given the head of a Linked List. You have to move the last element to the front of the Linked List and return the list.
+
+
+
+Code-
+
+class Solution{
+public:
+    ListNode *moveToFront(ListNode *head){
+        ListNode *p=head->next;
+        ListNode *q=head;
+        if(p==NULL)
+        {
+            return head;
+        }
+        while(p->next!=NULL)
+        {
+            q=q->next;
+            p=p->next;
+        }
+        q->next=NULL;
+        p->next=head;
+        head=p;
+        return head;
+        
+    }
+};
