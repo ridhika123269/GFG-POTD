@@ -1,0 +1,26 @@
+Given an array arr[] of N integers and replace every element with the least greater element on its right side in the array. If there are no greater elements on the right side, replace it with -1. 
+
+
+Code-
+
+class Solution{
+    public:
+    vector<int> findLeastGreater(vector<int>& arr, int n) {
+        set<int>s;
+        vector<int>res(n);
+        for(int i=n-1;i>=0;i--)
+        {
+            auto it=s.upper_bound(arr[i]);
+            if(it==s.end())
+            {
+                res[i]=-1;
+            }
+            else
+            {
+                res[i]=*it;
+            }
+            s.insert(arr[i]);
+        }
+        return res;
+    }
+};
